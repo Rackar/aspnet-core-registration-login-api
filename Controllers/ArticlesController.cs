@@ -33,17 +33,17 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]        
         [HttpGet]
-        public ActionResult<List<article>> GetAll()
+        public ActionResult<List<Article>> GetAll()
         {
             
-            return _context.articles.ToList();
+            return _context.Articles.ToList();
         }
 
         [AllowAnonymous]  
         [HttpGet("{id}", Name = "GetArticle")]
-        public ActionResult<article> GetById(int id)
+        public ActionResult<Article> GetById(int Id)
         {
-            var item = _context.articles.Find(id);
+            var item = _context.Articles.Find(Id);
             if (item == null)
             {
                 return NotFound();
@@ -52,12 +52,12 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(article item)
+        public IActionResult Create(Article item)
         {
-            _context.articles.Add(item);
+            _context.Articles.Add(item);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetArticle", new {  gid = item.id }, item);
+            return CreatedAtRoute("GetArticle", new {  gid = item.Id }, item);
         }
 
 

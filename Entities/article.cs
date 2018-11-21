@@ -3,21 +3,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.Entities
 {
-    public class article
+    public class Article
     {
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
         [Required]
-        public int user_id { get; set; }
+        public int User_id { get; set; }
         [Required]
-        public string category { get; set; }
+        public string Category { get; set; }
         [Required]
-        public string title { get; set; }
+        public string Title { get; set; }
         [Required]
-        public string content { get; set; }
+        public string Content { get; set; }
+        
+        public int View_counts { get; set; }
         [Required]
-        public int view_counts { get; set; }
-        [Required]
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
     }
 }
