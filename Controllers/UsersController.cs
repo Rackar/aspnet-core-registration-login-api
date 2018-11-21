@@ -25,7 +25,7 @@ namespace WebApi.Controllers
         private readonly AppSettings _appSettings;
 
         public UsersController(
-            IUserService userService,
+            IUserService userService, //接口实例化作为形参 WHY？使用接口降低耦合度，在startup中AddScoped方式依赖注入
             IMapper mapper,
             IOptions<AppSettings> appSettings)
         {
