@@ -31,15 +31,15 @@ namespace WebApi.Controllers
             _context = context;
         }
 
-        [AllowAnonymous]        
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<List<Article>> GetAll()
         {
-            
+
             return _context.Articles.ToList();
         }
 
-        [AllowAnonymous]  
+        [AllowAnonymous]
         [HttpGet("{id}", Name = "GetArticle")]
         public ActionResult<Article> GetById(int Id)
         {
@@ -54,14 +54,53 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult Create(Article item)
         {
+            if(item.Category=="")
+            {
+                item.Category="未分类";
+            }
             _context.Articles.Add(item);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetArticle", new {  gid = item.Id }, item);
+            return CreatedAtRoute("GetArticle", new { gid = item.Id }, item);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int Id, Article item)
+        {
+            var article = _context.Articles.Find(Id);
+            if (article == null)
+            {
+                return NotFound();
+            }
+            article.Category = item.Category;
+            article.Title = item.Title;
+            article.Content = item.Content;
+
+
+
+            _context.Articles.Update(article);
+            _context.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int Id)
+        {
+            var article = _context.Articles.Find(Id);
+            if (article == null)
+            {
+                return NotFound();
+            }
+
+            _context.Articles.Remove(article);
+            _context.SaveChanges();
+            return NoContent();
         }
 
 
 
-        
+
+
+
     }
 }
