@@ -4,8 +4,10 @@
    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
    "version": "0.2.0",
    "configurations": [
+   
         {
             "name": ".NET Core Launch (web)",
+            "justMyCode":false,
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -21,6 +23,18 @@
             "sourceFileMap": {
                 "/Views": "${workspaceRoot}/Views"
             },
+            // "symbolOptions": {
+            //     "searchPaths": [
+            //         // "~/src/MyOtherProject/bin/debug",
+            //         "https://msdl.microsoft.com/download/symbols"
+            //     ],
+            //     "searchMicrosoftSymbolServer": true,
+            //     "cachePath": "/symcache",
+            //     "moduleFilter": {
+            //         "mode": "loadAllButExcluded",
+            //         "excludedModules": [ "DoNotLookForThisOne*.dll" ]
+            //     }
+            // }
             // "Just My Code":false,
         },
         {

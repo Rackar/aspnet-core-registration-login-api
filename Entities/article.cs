@@ -18,6 +18,6 @@ namespace WebApi.Entities
         
         public int View_counts { get; set; }
         [Required]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 }

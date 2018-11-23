@@ -22,13 +22,14 @@ namespace WebApi.Controllers
     public class ArticlesController : ControllerBase
     {
         private readonly DataContext _context;
-        private IUserService _userService;
-        private IMapper _mapper;
-        private readonly AppSettings _appSettings;
+        // private IUserService _userService;
+         private IMapper _mapper;
+        // private readonly AppSettings _appSettings;
 
-        public ArticlesController(DataContext context)
+        public ArticlesController(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper=mapper;
         }
 
         [AllowAnonymous]
@@ -51,9 +52,11 @@ namespace WebApi.Controllers
             return item;
         }
 
+        [AllowAnonymous]
         [HttpPost]
-        public IActionResult Create(Article item)
+        public IActionResult Create([FromBody]Article item)
         {
+            Console.Write(item);
             if(item.Category=="")
             {
                 item.Category="未分类";
@@ -61,7 +64,7 @@ namespace WebApi.Controllers
             _context.Articles.Add(item);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetArticle", new { gid = item.Id }, item);
+            return CreatedAtRoute("GetArticle", new { id = item.Id }, item);
         }
 
         [HttpPut("{id}")]
