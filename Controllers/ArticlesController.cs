@@ -52,7 +52,7 @@ namespace WebApi.Controllers
             return item;
         }
 
-        [AllowAnonymous]
+        // [AllowAnonymous]
         [HttpPost]
         public IActionResult Create([FromBody]Article item)
         {
@@ -64,7 +64,8 @@ namespace WebApi.Controllers
             _context.Articles.Add(item);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetArticle", new { id = item.Id }, item);
+            return Ok();
+            // return CreatedAtRoute("GetArticle", new { id = item.Id }, item);
         }
 
         [HttpPut("{id}")]
