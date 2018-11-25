@@ -46,9 +46,9 @@ namespace WebApi.Controllers
         {
             var itemArti = _context.Articles.Find(Id);
 
-            var res = (from comm in _context.Comments join arti in _context.Articles on comm.article_id equals arti.Id where arti.Id == Id select comm).Distinct();
-            List<Comment> list = res.Select(t => new Comment() { CreateWhen=t.CreateWhen, InvestmentNumber=t.InvestmentNumber, Amount=t.Amount }).ToList();
-            var item =  list;
+            var res = (from comm in _context.Comments join arti in _context.Articles on comm.article_id equals arti.Id where arti.Id == Id select new {comm.Id,comm.User_id,comm.article_id,comm.Content,comm.Date}).Distinct();
+             List<Comment> list = res.Select(t =>  new Comment(){Id=t.Id} ).ToList();
+            var item =  res;
             // var item = _context.Comments.Find(itemArti.Id);
             if (item == null)
             {
