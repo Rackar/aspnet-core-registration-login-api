@@ -42,17 +42,23 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpGet("article/{id}", Name = "GetArticleComments")]
-        public ActionResult<Comment> GetByArticleId(int Id)
+        public List<Comment> GetByArticleId(int Id)
         {
             var itemArti = _context.Articles.Find(Id);
+            // var res = _context.Comments.Where(x => x.article_id==Id); 
+            var res = _context.Comments.Where( tt => tt.article_id==Id).ToList();
 
-            var res = (from comm in _context.Comments join arti in _context.Articles on comm.article_id equals arti.Id where arti.Id == Id select new {comm.Id,comm.User_id,comm.article_id,comm.Content,comm.Date}).Distinct();
-             List<Comment> list = res.Select(t =>  new Comment(){Id=t.Id} ).ToList();
-            var item =  res;
+            var res2 = from i in _context.Comments 
+                         where i.article_id == Id
+                         select i;
+            //var res = (from comm in _context.Comments join arti in _context.Articles on comm.article_id equals arti.Id where arti.Id == Id select new {comm.Id,comm.User_id,comm.article_id,comm.Content,comm.Date}).Distinct();
+           Console.Write(res2);
+            var x=res;
+                    var item =  x;
             // var item = _context.Comments.Find(itemArti.Id);
             if (item == null)
             {
-                return NotFound();
+                return null;
             }
             return item;
         }
@@ -69,7 +75,7 @@ namespace WebApi.Controllers
             return item;
         }
         [AllowAnonymous]
-        [HttpGet("comment/{id}", Name = "GetArticleComments")]
+        [HttpGet("comment/{id}", Name = "GetComment")]
         public ActionResult<Comment> GetById(int Id)
         {
             var item = _context.Comments.Find(Id);
